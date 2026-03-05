@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Upload Resume</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="navbar">
+AI Resume Analyzer
+</div>
+<div class="container">
+<h1>Upload Your Resume</h1>
+<form action="/result" method="post" enctype="multipart/form-data">
+<label>Select Job Role</label>
+<br>
+<select name="role">
+<option>Data Analyst</option>
+<option>Web Developer</option>
+<option>Software Developer</option>
+<option>DevOps Engineer</option>
+<option>Cyber Security Analyst</option>
+</select>
+<br><br>
+<label>Upload Resume (PDF / Image)</label>
+<br>
+<input type="file" name="resume">
+<br><br>
+<button type="submit">Analyze Resume</button>
+</form>
+</div>
+<div class="footer">
+AI Resume Analyzer
+</div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Resume Analysis</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="navbar">
+AI Resume Analyzer
+</div>
+<div class="container">
+<h1>Resume Analysis Dashboard</h1>
+<p><b>Selected Role:</b> {{ role }}</p>
+<div class="section">
+<div class="section-title">Match Score</div>
+<div class="score-bar">
+<div class="score-fill" style="width: {{score}}%;">
+{{score}}%
+</div>
+</div>
+</div>
+<div class="section">
+<div class="section-title">Skill Match Chart</div>
+<div style="width:320px;margin:auto;">
+<canvas id="skillChart"></canvas>
+</div>
+</div>
+<div class="section">
+<div class="section-title">Matched Skills</div>
+{% for skill in matched %}
+<span class="badge badge-green">{{ skill }}</span>
+{% endfor %}
+</div>
+<div class="section">
+<div class="section-title">Missing Skills</div>
+{% for skill in missing %}
+<span class="badge badge-red">{{ skill }}</span>
+{% endfor %}
+</div>
+<div class="section">
+<div class="section-title">Experience Check</div>
+{% if experience_found %}
+<p>Experience detected in resume.</p>
+{% else %}
+<p>No experience detected.</p>
+{% endif %}
+</div>
+<div class="section">
+<div class="section-title">Suggestions</div>
+<ul>
+{% for s in suggestions %}
+<li>{{ s }}</li>
+{% endfor %}
+</ul>
+</div>
+<br>
+<a href="/upload">
+<button>Analyze Another Resume</button>
+</a>
+</div>
+<div class="footer">
+AI Resume Analyzer • Resume Intelligence Tool
+</div>
+<script>
+const matchedCount = {{ matched|length }};
+const missingCount = {{ missing|length }};
+const ctx = document.getElementById('skillChart');
+new Chart(ctx, {
+type: 'pie',
+data: {
+labels: ['Matched Skills','Missing Skills'],
+datasets: [{
+data: [matchedCount, missingCount],
+backgroundColor: [
+'#4CAF50',
+'#FF6B6B'
+]
+}]
+},
+options: {
+responsive: true
+}
+});
+</script>
+</body>
+</html>
